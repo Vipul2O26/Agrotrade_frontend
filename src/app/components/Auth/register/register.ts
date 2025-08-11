@@ -1,37 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth';
-import { Router } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-register',
+  templateUrl: './register.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './register.html'
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, RouterLink],
 })
-export class RegisterComponent implements OnInit {
-  form: any;
+export class RegisterComponent {
+  registerForm: FormGroup;
+  submitted = false;
+  loading = false;
+  showPassword = false;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {
-    this.form = this.fb.group({
-      fullName: ['', Validators.required],
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      role: ['Farmer', Validators.required],
-      phoneNumber: [''],
-      address: ['']
+      name: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      role: ['', Validators.required],
+      address: ['', Validators.required],
+      phoneNumber: ['']
     });
   }
 
-  submit() {
-    if (this.form.valid) {
-      this.auth.register(this.form.value).subscribe(() => {
-        alert('Registration successful');
-        this.router.navigate(['/login']);
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.registerForm.valid) {
+      this.authService.register(this.registerForm.value).subscribe({
+        next: () => {
+          alert('Registration successful');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          alert(err.error || 'Registration failed');
+        }
       });
     }
   }
 }
+

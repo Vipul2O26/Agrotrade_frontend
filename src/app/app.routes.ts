@@ -11,5 +11,5 @@ export const routes: Routes = [
     { path: 'buyer' , component: BuyerComponent},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: '', redirectTo: 'buyer', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
   ];
