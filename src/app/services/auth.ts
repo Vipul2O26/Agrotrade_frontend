@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { Token } from '@angular/compiler';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:5142/api/Users'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   register(data: any) {
     return this.http.post('http://localhost:5142/api/Users/register', {
       Email: data.email,
-      PasswordHash: data.password,
+      Password: data.password,
       FullName: data.name,
       Role: data.role,
       Address: data.address,
@@ -36,10 +38,14 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.router.navigate(['/login']); 
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+    return true;
+
   }
 
   getUserRole(): string | null {
