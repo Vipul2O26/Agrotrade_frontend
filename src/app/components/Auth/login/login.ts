@@ -54,8 +54,6 @@ export class LoginComponent implements OnInit {
           const role = (userData.role || '').toLowerCase();
           if (role === 'farmer') {
             this.router.navigate(['/farmer']);
-          } else if (role === 'buyer') {
-            this.router.navigate(['/buyer']);
           } else if (role === 'admin') {
             this.router.navigate(['/admin']);
           } else {

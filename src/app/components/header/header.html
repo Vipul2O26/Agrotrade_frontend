@@ -10,29 +10,70 @@
 
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 </head>
 <body>
-    <div class="sidebar">
-        <div>
-          <h4 class="text-center mb-4"><i class="bi bi-shop"></i> AgroTrade</h4>
-          <div class="user-info">
-            👤 Welcome {{ fullName }}
+
+  <!-- Sidebar -->
+  <div class="sidebar shadow">
+    <h4 class="text-center text-white mb-4"><i class="bi bi-flower1 me-2"></i>AgroTrade</h4>
+    <a href="/farmer"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+    <a href="/view"><i class="bi bi-eye me-2"></i> View All Products</a>
+    <a href="/add"><i class="bi bi-cart-plus me-2"></i> Add Product</a>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-custom navbar-expand-lg px-4">
+    <div class="ms-auto d-flex align-items-center">
+      <span class="me-3">👤 Welcome <strong>{{ fullName }}</strong></span>
+      <button 
+        class="btn btn-danger btn-sm" 
+        (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </nav>
+  
+
+  <!-- Main Content -->
+  <div class="content">
+    <h2 class="mb-4">Dashboard</h2>
+    
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title text-success"><i class="bi bi-box-seam"></i> My Products</h5>
+            <p class="card-text">Manage all your listed crops and goods.</p>
+            <a href="#" class="btn btn-outline-success btn-sm">View</a>
           </div>
-          <a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
-          <a href="#"><i class="bi bi-box-seam"></i> My Products</a>
-          <a href="#"><i class="bi bi-eye"></i> View All Products</a>
-        </div>
-        <div>
-          <button class="btn btn-danger w-100" (click)="logout()">
-            <i class="bi bi-box-arrow-right"></i> Logout
-          </button>
         </div>
       </div>
       
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title text-success"><i class="bi bi-bar-chart"></i> Market Prices</h5>
+            <p class="card-text">Check the latest rates for your crops.</p>
+            <a href="#" class="btn btn-outline-success btn-sm">View</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title text-success"><i class="bi bi-people"></i> Buyers</h5>
+            <p class="card-text">See potential buyers for your produce.</p>
+            <a href="#" class="btn btn-outline-success btn-sm">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-  <script>
-  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

@@ -1,35 +1,30 @@
 body {
-    min-height: 100vh;
-    display: flex;
-  }
-  .sidebar {
-    width: 250px;
-    background-color: #1db0d4; /* Bootstrap success color */
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-  .sidebar a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .sidebar a:hover {
-    background-color: rgba(255,255,255,0.2);
-  }
-  .main-content {
-    flex-grow: 1;
-    padding: 1rem;
-    background-color: #f8f9fa;
-  }
-  .user-info {
-    margin-bottom: 1rem;
-    font-weight: bold;
-    text-align: center;
-  }
+  background-color: #f8f9fa;
+}
+.sidebar {
+  height: 100vh;
+  background: linear-gradient(180deg, #28a745, #1e7e34);
+  padding-top: 1rem;
+  position: fixed;
+  width: 250px;
+}
+.sidebar a {
+  color: white;
+  padding: 10px 15px;
+  display: block;
+  border-radius: 8px;
+  margin: 5px 10px;
+  transition: background 0.3s;
+}
+.sidebar a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.content {
+  margin-left: 260px;
+  padding: 20px;
+}
+.navbar-custom {
+  margin-left: 250px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}

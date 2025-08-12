@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <h3>Add New Product</h3>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    
+      <div class="mb-3">
+        <label>Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+      </div>
+  
+      <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" formControlName="description"></textarea>
+      </div>
+  
+      <div class="mb-3">
+        <label>Price</label>
+        <input type="number" class="form-control" formControlName="price" />
+      </div>
+  
+      <div class="mb-3">
+        <label>Quantity</label>
+        <input type="number" class="form-control" formControlName="quantity" />
+      </div>
+  
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" id="isBidding" formControlName="isBidding" />
+        <label class="form-check-label" for="isBidding">Is Bidding?</label>
+      </div>
+  
+      <div class="mb-3">
+        <label>Image URL</label>
+        <input type="file" class="form-control" formControlName="imageUrl" />
+      </div>
+  
+      <!-- Hidden farmerId field (set this programmatically in your TS) -->
+      <input type="hidden" formControlName="farmerId" />
+  
+      <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">
+        Add Product
+      </button>
+    </form>
+  </div>
+  

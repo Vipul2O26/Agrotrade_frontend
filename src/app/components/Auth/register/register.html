@@ -64,7 +64,7 @@
         <select formControlName="role" class="form-select"
           [ngClass]="{ 'is-invalid': submitted && registerForm.get('role')?.invalid }">
           <option value="" disabled>Select role</option>
-          <option value="buyer">Buyer</option>
+          <option value="admin">Admin</option>
           <option value="farmer">Farmer</option>
         </select>
         <div *ngIf="submitted && registerForm.get('role')?.errors" class="invalid-feedback">
