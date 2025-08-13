@@ -1,84 +1,100 @@
-<div class="container">
-  <h2>Add Product</h2>
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Product Name:</label>
-      <input
-        type="text"
-        id="name"
-        formControlName="name"
-        class="form-control"
-        placeholder="Enter product name"
-      />
-      <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
-        <small class="text-danger">Name is required and must be less than 150 characters.</small>
+<!-- Load Bootstrap CSS from CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<!-- Optional: Load Bootstrap JS for components like alerts if needed, though pure CSS alerts are fine -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100 bg-light py-4 py-sm-5">
+  <div class="card p-4 p-sm-5 shadow-lg" style="max-width: 500px; width: 100%;">
+    <h2 class="h3 fw-bold mb-4 text-center text-dark">Add New Product</h2>
+
+    <!-- Custom Message Box (Bootstrap Alert) -->
+    <div *ngIf="message" [ngClass]="{
+        'alert-success': messageType === 'success',
+        'alert-danger': messageType === 'error'
+      }" class="alert alert-dismissible fade show mb-4 shadow-sm" role="alert">
+      <h4 class="alert-heading fw-bold">{{ messageType === 'success' ? 'Success!' : 'Error!' }}</h4>
+      <p class="mb-0">{{ message }}</p>
+      <button type="button" class="btn-close" (click)="clearMessage()" aria-label="Close"></button>
+    </div>
+
+    <!-- Product Form -->
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="name" class="form-label">Product Name</label>
+        <input type="text" id="name" formControlName="name"
+               class="form-control"
+               placeholder="Enter product name"
+               [class.is-invalid]="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+        <!-- Validation feedback for Name -->
+        <div class="invalid-feedback">
+          <span *ngIf="productForm.get('name')?.errors?.['required']">Product name is required.</span>
+          <span *ngIf="productForm.get('name')?.errors?.['maxlength']">Name cannot exceed 150 characters.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="description">Description:</label>
-      <textarea
-        id="description"
-        formControlName="description"
-        class="form-control"
-        rows="4"
-        placeholder="Enter product description"
-      ></textarea>
-      <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
-        <small class="text-danger">Description must be less than 500 characters.</small>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" formControlName="description" rows="3"
+                  class="form-control"
+                  placeholder="Provide a detailed description"
+                  [class.is-invalid]="productForm.get('description')?.invalid && productForm.get('description')?.touched"></textarea>
+        <!-- Validation feedback for Description -->
+        <div class="invalid-feedback">
+          <span *ngIf="productForm.get('description')?.errors?.['required']">Description is required.</span>
+          <span *ngIf="productForm.get('description')?.errors?.['maxlength']">Description cannot exceed 500 characters.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="price">Price:</label>
-      <input
-        type="number"
-        id="price"
-        formControlName="price"
-        class="form-control"
-        placeholder="Enter product price"
-      />
-      <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
-        <small class="text-danger">Price is required and must be a valid number.</small>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" id="price" formControlName="price"
+               class="form-control"
+               placeholder="0.00"
+               [class.is-invalid]="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+        <!-- Validation feedback for Price -->
+        <div class="invalid-feedback">
+          <span *ngIf="productForm.get('price')?.errors?.['required']">Price is required.</span>
+          <span *ngIf="productForm.get('price')?.errors?.['min']">Price must be greater than 0.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="quantity">Quantity:</label>
-      <input
-        type="number"
-        id="quantity"
-        formControlName="quantity"
-        class="form-control"
-        placeholder="Enter product quantity"
-      />
-      <div *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">
-        <small class="text-danger">Quantity is required.</small>
+      <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" id="quantity" formControlName="quantity"
+               class="form-control"
+               placeholder="1"
+               [class.is-invalid]="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">
+        <!-- Validation feedback for Quantity -->
+        <div class="invalid-feedback">
+          <span *ngIf="productForm.get('quantity')?.errors?.['required']">Quantity is required.</span>
+          <span *ngIf="productForm.get('quantity')?.errors?.['min']">Quantity must be at least 1.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="isBidding">Is Bidding:</label>
-      <select id="isBidding" formControlName="isBidding" class="form-control">
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="imageUrl">Image URL:</label>
-      <input
-        type="url"
-        id="imageUrl"
-        formControlName="imageUrl"
-        class="form-control"
-        placeholder="Enter image URL"
-      />
-      <div *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched">
-        <small class="text-danger">Image URL must be valid.</small>
+      <div class="mb-3 form-check">
+        <input id="isBidding" type="checkbox" formControlName="isBidding"
+               class="form-check-input">
+        <label for="isBidding" class="form-check-label">
+          Allow Bidding
+        </label>
       </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Add Product</button>
-  </form>
+      <!-- New: File Upload Input -->
+      <div class="mb-3">
+        <label for="productImageFile" class="form-label">Upload Image (Optional)</label>
+        <input type="file" id="productImageFile" class="form-control" (change)="onFileSelected($event)" accept="image/*">
+        <div *ngIf="selectedFileName" class="mt-2 text-muted fst-italic">Selected file: {{ selectedFileName }}</div>
+      </div>
+
+   
+
+      <button type="submit"
+              [disabled]="productForm.invalid || !isLoggedInUserFound"
+              class="btn btn-primary w-100 py-2 rounded-md shadow-sm opacity-transition"
+              [class.disabled]="productForm.invalid || !isLoggedInUserFound">
+        Add Product
+      </button>
+    </form>
+  </div>
 </div>

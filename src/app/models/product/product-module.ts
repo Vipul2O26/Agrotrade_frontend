@@ -1,28 +1,26 @@
-import { NgModule } from '@angular/core';
 
-export interface Product {
-  productId: string; // Guid
-  name: string;
-  description?: string;
-  price: number; // decimal(18,2)
-  quantity: number;
-  isBidding: boolean; // Direct sale or auction
-  imageUrl?: string;
-  createdAt: Date;
-  farmerId: string; // Guid
-  bids?: Bid[]; // Navigation property
-}
 
 export interface Bid {
   bidId: string; // Guid
   amount: number;
   bidderId: string; // Guid
-  createdAt: Date;
+  createdAt?: Date; // Optional because API may set it
 }
 
-@NgModule({
-  declarations: [],
-  imports: [],
-  exports: []
-})
+export interface Product {
+  productId?: string;
+  name: string;
+  description?: string;
+  price: number;
+  quantity: number;
+  isBidding: boolean;
+  imageUrl?: string;
+  createdAt?: Date;
+  userId: string; 
+  bids?: any[];
+}
+
+
+
+
 export class ProductModule {}

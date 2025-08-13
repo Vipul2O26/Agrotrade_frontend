@@ -1,23 +1,48 @@
-// src/app/services/product.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Product } from '../../models/product/product-module';
+import { Observable } from 'rxjs'; // Ensure Observable is imported
 
-@Injectable({ providedIn: 'root' })
-export class Service {
-  private apiUrl = 'http://localhost:5142/api/Products';
+// Assuming your Product interface is correctly defined elsewhere and imported.
+export interface Product {
+  productId?: string;
+  name: string;
+  description?: string;
+  price: number;
+  quantity: number;
+  isBidding: boolean;
+  imageUrl?: string;
+  createdAt?: Date;
+  userId: string;
+  bids?: any[];
+}
 
-  constructor(private http: HttpClient) {}
+@Injectable({
+  providedIn: 'root'
+})
+export class Service { // Your ProductService is named 'Service'
+  private apiUrl = 'http://localhost:5142/api/Products'; // Ensure this matches your backend URL
 
-  addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.apiUrl, product, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+  constructor(private http: HttpClient) { }
+
+  /**
+   * Sends a POST request to add a new product.
+   * @param productData The product data to be added, including UserId.
+   * @returns An Observable of the API response.
+   */
+  // 👈 Ensure this line explicitly says 'Observable<any>'
+  addProduct(productData: Product): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add`, productData);
   }
-  
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+  /**
+   * Uploads an image file to the backend.
+   * @param file The File object to upload.
+   * @returns An Observable containing the response, which should include the image URL.
+   */
+  uploadImage(file: File): Observable<{ imageUrl: string }> {
+    const formData = new FormData();
+    formData.append('file', file, file.name); // 'file' must match the parameter name in your backend endpoint
+
+    return this.http.post<{ imageUrl: string }>(`${this.apiUrl}/upload-image`, formData);
   }
 }
