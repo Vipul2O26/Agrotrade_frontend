@@ -1,43 +1,84 @@
-<div class="container mt-4">
-    <h3>Add New Product</h3>
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    
-      <div class="mb-3">
-        <label>Name</label>
-        <input type="text" class="form-control" formControlName="name" />
+<div class="container">
+  <h2>Add Product</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Product Name:</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-control"
+        placeholder="Enter product name"
+      />
+      <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+        <small class="text-danger">Name is required and must be less than 150 characters.</small>
       </div>
-  
-      <div class="mb-3">
-        <label>Description</label>
-        <textarea class="form-control" formControlName="description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        rows="4"
+        placeholder="Enter product description"
+      ></textarea>
+      <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+        <small class="text-danger">Description must be less than 500 characters.</small>
       </div>
-  
-      <div class="mb-3">
-        <label>Price</label>
-        <input type="number" class="form-control" formControlName="price" />
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input
+        type="number"
+        id="price"
+        formControlName="price"
+        class="form-control"
+        placeholder="Enter product price"
+      />
+      <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+        <small class="text-danger">Price is required and must be a valid number.</small>
       </div>
-  
-      <div class="mb-3">
-        <label>Quantity</label>
-        <input type="number" class="form-control" formControlName="quantity" />
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input
+        type="number"
+        id="quantity"
+        formControlName="quantity"
+        class="form-control"
+        placeholder="Enter product quantity"
+      />
+      <div *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">
+        <small class="text-danger">Quantity is required.</small>
       </div>
-  
-      <div class="form-check mb-3">
-        <input type="checkbox" class="form-check-input" id="isBidding" formControlName="isBidding" />
-        <label class="form-check-label" for="isBidding">Is Bidding?</label>
+    </div>
+
+    <div class="form-group">
+      <label for="isBidding">Is Bidding:</label>
+      <select id="isBidding" formControlName="isBidding" class="form-control">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">Image URL:</label>
+      <input
+        type="url"
+        id="imageUrl"
+        formControlName="imageUrl"
+        class="form-control"
+        placeholder="Enter image URL"
+      />
+      <div *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched">
+        <small class="text-danger">Image URL must be valid.</small>
       </div>
-  
-      <div class="mb-3">
-        <label>Image URL</label>
-        <input type="file" class="form-control" formControlName="imageUrl" />
-      </div>
-  
-      <!-- Hidden farmerId field (set this programmatically in your TS) -->
-      <input type="hidden" formControlName="farmerId" />
-  
-      <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">
-        Add Product
-      </button>
-    </form>
-  </div>
-  
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Add Product</button>
+  </form>
+</div>

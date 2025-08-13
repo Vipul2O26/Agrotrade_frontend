@@ -11,8 +11,11 @@ export class Service {
   constructor(private http: HttpClient) {}
 
   addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.apiUrl, product);
+    return this.http.post<Product>(this.apiUrl, product, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
+  
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);

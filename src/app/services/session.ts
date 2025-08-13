@@ -115,7 +115,7 @@ export class SessionService {
     return sessionStorage.getItem(this.keys.email) || localStorage.getItem(this.keys.email);
   }
 
-  getUserId(): number | null {
+  getfarmerId(): number | null {
     const idStr = sessionStorage.getItem(this.keys.userId) || localStorage.getItem(this.keys.userId);
     return idStr ? Number(idStr) : null;
   }
