@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../models/product/product-module'; // Assuming this path is correct
 import { Service as ProductService } from '../../../services/products/services';
 import { CommonModule } from '@angular/common';
@@ -7,12 +7,13 @@ import { SessionService } from '../../../services/session';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs'; // 👈 Added 'of' import
 import { switchMap } from 'rxjs/operators';
+import { Header } from '../../header/header';
 
 @Component({
   selector: 'app-add',
   standalone: true,
   templateUrl: './add.html',
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule , Header, FormsModule]
 })
 export class Add implements OnInit {
   productForm!: FormGroup;
@@ -21,6 +22,7 @@ export class Add implements OnInit {
   isLoggedInUserFound: boolean = true;
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
+  router: any;
 
   constructor(
     private fb: FormBuilder,
@@ -95,7 +97,6 @@ export class Add implements OnInit {
         })
       ).subscribe({
         next: () => {
-          // Success message for the whole process handled by submitProductData
         },
         error: (err: HttpErrorResponse) => {
           console.error('Error during image upload or product submission:', err);
@@ -105,7 +106,8 @@ export class Add implements OnInit {
     } else {
       this.submitProductData(userSession.userId).subscribe({
         next: () => {
-          // Success message handled by submitProductData
+          this.showMessage('Product added successfully!', 'success');
+          this.router.navigate(['/products']);
         },
         error: (err: HttpErrorResponse) => {
           console.error('Error submitting product:', err);

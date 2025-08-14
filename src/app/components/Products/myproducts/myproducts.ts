@@ -1,38 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../models/product/product-module';
 import { Service } from '../../../services/products/services';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../header/header';
-import { RouterLink } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-view',
-  templateUrl: './view.html',
+  selector: 'app-myproducts',
   standalone: true,
-  imports: [CommonModule , Header , RouterLink , FormsModule]
+  imports: [ ReactiveFormsModule , CommonModule , Header],
+  templateUrl: './myproducts.html',
+  styleUrl: './myproducts.css'
 })
-export class View implements OnInit {
+export class Myproducts implements OnInit {
 
-  products: Product[] = [];
+  myProducts: Product[] = [];
   isLoading = true;
   errorMessage: string | null = null;
 
   constructor(private service: Service) { }
 
   ngOnInit(): void {
-    this.service.getAllProducts().subscribe({
+    this.service.getMyProductsByUserId().subscribe({
       next: (data) => {
-        this.products = data;
+        this.myProducts = data;
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Failed to fetch products:', err);
-        this.errorMessage = 'Failed to load products. Please try again later.';
+        console.error('Failed to fetch my products:', err);
+        this.errorMessage = err.error?.message || 'Failed to load your products. Please log in and try again.';
         this.isLoading = false;
       }
     });
   }
-
-
 }
