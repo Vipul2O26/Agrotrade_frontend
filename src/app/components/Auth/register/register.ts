@@ -17,6 +17,8 @@ export class RegisterComponent {
   submitted = false;
   loading = false;
   showPassword = false;
+  errorMessage: string | null | undefined;
+  successMessage: string | undefined;
 
 
   constructor(
@@ -37,18 +39,54 @@ export class RegisterComponent {
 
   onSubmit() {
     this.submitted = true;
-
-    if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe({
-        next: () => {
-          alert('Registration successful');
-          this.router.navigate(['/login']);
-        },
-        error: (err) => {
-          alert(err.error || 'Registration failed');
-        }
-      });
+    this.errorMessage = null; // Clear previous errors
+    this.loading = true;
+    
+  
+    if (this.registerForm.invalid) {
+      this.loading = false;
+      return;
     }
+  
+    // Handle password mismatch on the client-side
+    if (this.registerForm.get('password')?.value !== this.registerForm.get('confirmPassword')?.value) {
+      this.errorMessage = 'Passwords do not match.';
+      this.loading = false;
+      return;
+    }
+  
+    this.authService.register(this.registerForm.value).subscribe({
+      next: (res) => {
+        this.loading = false;
+        this.successMessage = 'Registration successful! You can now log in.';
+        this.registerForm.reset();
+        this.submitted = false;
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 3000);
+      },
+      error: (err) => {
+        this.loading = false;
+        
+        // Check for a specific 400 status code
+        if (err.status === 400) {
+          // The backend sends a simple string for a bad request
+          const serverMessage = err.error; 
+          if (typeof serverMessage === 'string') {
+            // Pass the message from the backend directly to the user
+            this.errorMessage = serverMessage; 
+          } else {
+            // Fallback if the 400 error is not a simple string
+            this.errorMessage = 'Registration data is invalid. Please check your inputs.';
+          }
+        } else {
+          // Fallback for all other error statuses (e.g., 500, network issues)
+          this.errorMessage = 'An unexpected error occurred. Please try again.';
+        }
+        
+        console.error('Registration error:', err);
+      }
+    });
   }
 }
 

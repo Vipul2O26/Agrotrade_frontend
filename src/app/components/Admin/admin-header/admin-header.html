@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm rounded-bottom">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold px-2" routerLink="/admin-dashboard">
+      Admin Panel
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="navbar-toggler" type="button" (click)="toggleMobileMenu()" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': isMobileMenuOpen }" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" routerLink="/profile" (click)="toggleMobileMenu()">Profile</a>
+        </li>
+        <li class="nav-item ms-2">
+          <button class="btn btn-danger fw-bold px-3 py-1" (click)="logout(); toggleMobileMenu()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

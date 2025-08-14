@@ -29,7 +29,7 @@ export class AuthService {
     }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
-        // Store user info as stringified JSON
+    
         localStorage.setItem('user', JSON.stringify(response.user));
       })
     );
