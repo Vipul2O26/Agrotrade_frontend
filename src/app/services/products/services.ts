@@ -21,7 +21,7 @@ export interface Product {
 })
 export class Service {
 
-  private apiUrl = 'http://localhost:5142/api/Products'; // Ensure this matches your backend URL
+  private apiUrl = 'http://localhost:5142/api/Products'; 
 
   constructor(private http: HttpClient,
               private sessionServices: SessionService

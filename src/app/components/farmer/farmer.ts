@@ -19,9 +19,5 @@ interface Product {
 export class FarmerComponent   {
  
 
-
-
- 
-
  
 }

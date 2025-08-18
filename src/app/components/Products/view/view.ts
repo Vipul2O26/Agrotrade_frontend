@@ -4,7 +4,7 @@ import { Service } from '../../../services/products/services';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../header/header';
 import { RouterLink } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view',
