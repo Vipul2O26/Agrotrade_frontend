@@ -19,7 +19,7 @@ export class Audittrail implements OnInit {
   }
 
   getUserAudit() {
-    const userId = 'UserId'; 
+    const userId = ''; 
     this.userService.getUserAuditTrail(userId).subscribe({
       next: (auditLogs: any) => {
         this.auditLogs = auditLogs;
