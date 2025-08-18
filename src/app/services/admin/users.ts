@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SessionService } from '../session';
 
 export interface User {
 createdAt: string|number|Date;
@@ -17,27 +16,24 @@ mobileNumber: any;
   isActive: boolean;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class Users {
-  
+  private apiUrl = 'http://localhost:5142/api/Admin';
 
-  private apiUrl = 'http://localhost:5142/api/Users'; 
-
-  constructor(
-    private http: HttpClient
-  ) {}
-
-
-
+  constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    return this.http.get<User[]>(`${this.apiUrl}/farmers`);
+  }
+
+  getUserAuditTrail(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Auditlogs`);
   }
   
 }
+
 
 
 

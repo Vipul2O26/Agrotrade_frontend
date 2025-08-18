@@ -8,6 +8,8 @@ import { Add } from './components/Products/add/add';
 import { View } from './components/Products/view/view';
 import { Myproducts } from './components/Products/myproducts/myproducts';
 import { Bid } from './components/Products/bid/bid';
+import { Viewalluser } from './components/Admin/viewalluser/viewalluser';
+import { Audittrail } from './components/Admin/audittrail/audittrail';
 
 
 
@@ -27,6 +29,9 @@ export const routes: Routes = [
 
     
 
+    //admin routes
+    {path: 'alluser' , component: Viewalluser , canActivate: [AuthGuard]},
+    {path: 'audittrail' , component: Audittrail , canActivate: [AuthGuard]},
 
     // Authentication Routes
     { path: 'login', component: LoginComponent },

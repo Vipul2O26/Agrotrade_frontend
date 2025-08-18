@@ -1,32 +1,9 @@
 <app-admin-header></app-admin-header>
-<div class="container mt-4">
 
+<div class="admin-dashboard">
   
-    <div *ngIf="loading" class="text-center">
-      <div class="spinner-border text-primary"></div>
-      <p>Loading users...</p>
+    <div class="actions">
+        <button (click)="viewAllUsers()">View All Users</button>
+        <button (click)="viewAuditTrail()">Audit Trail</button>
     </div>
-  
-    <table *ngIf="!loading" class="table table-striped table-hover table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Mobile</th>
-          <th>Role</th>
-          <th>Registered At</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.fullName }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.phoneNumber}}</td>
-        
-          <td>{{ user.role}}  </td>
-          <td>{{ user.createdAt | date:'medium' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+</div>
