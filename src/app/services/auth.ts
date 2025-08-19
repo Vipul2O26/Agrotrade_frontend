@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { SessionService } from './session';
 
 import { Users } from './admin/users';
 
@@ -9,7 +10,7 @@ import { Users } from './admin/users';
 export class AuthService {
   private apiUrl = 'http://localhost:5142/api/Users'; 
 
-  constructor(private http: HttpClient, private router: Router, private user: Users) {}
+  constructor(private http: HttpClient, private router: Router, private user: Users, private sessionservices: SessionService) {}
 
   register(data: any) {
     return this.http.post(`${this.apiUrl}/register`, {
@@ -46,15 +47,15 @@ export class AuthService {
   }
 
   logout() {
-    const user = this.getUser(); // from localStorage
+    const user = this.getUser(); 
     const userId = user?.userId;
-    const username = user?.fullName;
+    const fullName = user?.fullName;
   
     if (userId) {
-      // Send logout info to backend
+     
       this.http.post(`${this.apiUrl}/logout`, {
         userId: userId,
-        username: username
+        fullName: fullName
       }).subscribe({
         next: () => console.log('Logout logged on server'),
         error: (err) => console.error('Failed to log logout:', err),
@@ -80,11 +81,10 @@ export class AuthService {
   }
 
 
-  getUser(): any {
-    const user = localStorage.getItem('user');
+  getUser() {
+    const user = localStorage.getItem('user'); 
     return user ? JSON.parse(user) : null;
   }
-
   getUserId(): string | null {
     const user = this.getUser();
     return user ? user.userId : null;
