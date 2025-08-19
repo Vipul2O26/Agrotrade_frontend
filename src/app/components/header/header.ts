@@ -14,7 +14,6 @@ export class Header {
 
   constructor(
     private sessionService: SessionService,
-    private router: Router,
     private authservice: AuthService
     
   ) {}
@@ -26,4 +25,6 @@ export class Header {
   logout() {
     this.authservice.logout();
   }
+
+  
 }

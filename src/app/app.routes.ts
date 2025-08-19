@@ -5,11 +5,10 @@ import { RegisterComponent } from '../app/components/Auth/register/register';
 import { FarmerComponent } from './components/farmer/farmer';
 import { AuthGuard } from './guard/auth-guard';
 import { Add } from './components/Products/add/add';
-// import { View } from './components/Products/view/view';
-// import { Myproducts } from './components/Products/myproducts/myproducts';
-// import { Bid } from './components/Products/bid/bid';
 import { Viewalluser } from './components/Admin/viewalluser/viewalluser';
 import { Audittrail } from './components/Admin/audittrail/audittrail';
+import { Allproduct } from './components/Products/allproduct/allproduct';
+import { Myproduct } from './components/Products/myproduct/myproduct';
 
 
 
@@ -20,12 +19,10 @@ export const routes: Routes = [
     { path: 'admin' , component: AdminDashboard , canActivate: [AuthGuard] },
 
     // Product Routes
-    { path: 'add' , component: Add , canActivate: [AuthGuard] },
-    // { path: 'view' , component: View , canActivate: [AuthGuard] },
-    // { path: 'myproducts' , component: Myproducts, canActivate: [AuthGuard]},
+    { path: 'addproduct' , component: Add , canActivate: [AuthGuard] },
+    { path: 'allproduct' , component: Allproduct , canActivate: [AuthGuard] },
+    { path: 'myproduct' , component: Myproduct , canActivate: [AuthGuard] },
 
-    // // Bid Routes
-    // { path: 'bid/:guid' , component: Bid , canActivate: [AuthGuard] },
 
     
 
