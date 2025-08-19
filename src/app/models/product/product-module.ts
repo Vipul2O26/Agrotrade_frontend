@@ -8,6 +8,7 @@ export interface Bid {
 }
 
 export interface Product {
+id: any;
   productId?: string;
   name: string;
   description?: string;

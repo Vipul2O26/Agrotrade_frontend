@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 import { SessionService } from '../session';
+import { ProductModule } from '../../models/product/product-module';
 
 export interface Product {
   productId?: string;
@@ -24,7 +25,8 @@ export class Service {
   private apiUrl = 'http://localhost:5142/api/Products'; 
 
   constructor(private http: HttpClient,
-              private sessionServices: SessionService
+              private sessionServices: SessionService,
+              private productModule: ProductModule
   ) { }
 
 

@@ -46,30 +46,33 @@ export class AuthService {
     });
   }
 
-  logout() {
-    const user = this.getUser(); 
-    const userId = user?.userId;
-    const fullName = user?.fullName;
+  logout(): void {
+    const userId = this.sessionservices.getUserID();
+    const fullName = this.sessionservices.getName();
   
-    if (userId) {
-     
-      this.http.post(`${this.apiUrl}/logout`, {
-        userId: userId,
-        fullName: fullName
-      }).subscribe({
-        next: () => console.log('Logout logged on server'),
-        error: (err) => console.error('Failed to log logout:', err),
-        complete: () => {
-          this.clearSession();
+    if (userId && fullName) {
+      this.http.post(`${this.apiUrl}/logout`, { userId, fullName }).subscribe({
+        next: () => {
+          console.log('Logout stored in DB');
+          this.sessionservices.clearSession();
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Error logging out:', err);
+          // still clear session even if API fails
+          this.sessionservices.clearSession();
           this.router.navigate(['/login']);
         }
       });
     } else {
-     
-      this.clearSession();
+      this.sessionservices.clearSession();
       this.router.navigate(['/login']);
     }
   }
+  
+  
+  
+  
   
 
   private clearSession() {

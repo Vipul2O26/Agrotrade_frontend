@@ -13,13 +13,11 @@ import { Router } from '@angular/router';
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css'
 })
-export class AdminDashboard implements OnInit {
+export class AdminDashboard  {
 
   constructor(private router: Router) { }
   
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  
   viewAuditTrail() {
     this.router.navigate(['/audittrail']);
   } 

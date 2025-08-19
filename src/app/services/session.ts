@@ -91,29 +91,14 @@ export class SessionService {
     console.log('Session and local storage cleared');
   }
 
-  /**
-   * Removes only the authentication token from storage.
-   */
-  logout(): void {
-    if (!this.isBrowser) return;
-    sessionStorage.removeItem(this.keys.token);
-    localStorage.removeItem(this.keys.token);
-    console.log('Token removed from storage');
-  }
+ 
 
-  /**
-   * Retrieves the authentication token.
-   * @returns Token string or null.
-   */
   getToken(): string | null {
     if (!this.isBrowser) return null;
     return sessionStorage.getItem(this.keys.token) || localStorage.getItem(this.keys.token);
   }
 
-  /**
-   * Sets the authentication token in storage.
-   * @param token The token string.
-   */
+
   setToken(token: string): void {
     if (!this.isBrowser) return;
     try {
@@ -125,9 +110,6 @@ export class SessionService {
     }
   }
 
-  /**
-   * Clears the authentication token from storage.
-   */
   clearToken(): void {
     if (!this.isBrowser) return;
     sessionStorage.removeItem(this.keys.token);
@@ -135,28 +117,18 @@ export class SessionService {
     console.log('Token cleared from storage');
   }
 
-  /**
-   * Checks if a user is currently logged in (based on token presence).
-   * @returns True if a token exists, false otherwise.
-   */
+ 
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
-  /**
-   * Retrieves the user's email.
-   * @returns Email string or null.
-   */
+
   getEmail(): string | null {
     if (!this.isBrowser) return null;
     return sessionStorage.getItem(this.keys.email) || localStorage.getItem(this.keys.email);
   }
 
-  /**
-   * Retrieves the user's ID.
-   * This now returns a string (GUID) or null.
-   * @returns User ID as string (GUID) or null.
-   */
+
   getUserID(): string | null {
     if (!this.isBrowser) return null;
     return sessionStorage.getItem(this.keys.userId) || localStorage.getItem(this.keys.userId);

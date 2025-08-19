@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SessionService } from '../../services/session';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,9 @@ export class Header {
 
   constructor(
     private sessionService: SessionService,
-    private router: Router
+    private router: Router,
+    private authservice: AuthService
+    
   ) {}
 
   ngOnInit() {
@@ -21,7 +24,6 @@ export class Header {
   }
 
   logout() {
-    this.sessionService.clearSession();
-    this.router.navigate(['/login']);
+    this.authservice.logout();
   }
 }
