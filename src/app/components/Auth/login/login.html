@@ -8,10 +8,12 @@
         <div class="card-body">
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             
+            <!-- Error message -->
             <div *ngIf="errorMessage" class="alert alert-danger mb-3" role="alert">
               {{ errorMessage }}
             </div>
             
+            <!-- Email -->
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
               <input
@@ -27,6 +29,7 @@
               </div>
             </div>
 
+            <!-- Password -->
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input
@@ -40,7 +43,26 @@
                 <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
               </div>
             </div>
+
+            <!-- Role Dropdown -->
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select
+                id="role"
+                formControlName="role"
+                class="form-select"
+                [ngClass]="{ 'is-invalid': (form.get('role')?.touched || submitted) && form.get('role')?.invalid }"
+              >
+                <option value="" disabled>Select your role</option>
+                <option value="Admin">Admin</option>
+                <option value="Farmer">Farmer</option>
+              </select>
+              <div *ngIf="(form.get('role')?.touched || submitted) && form.get('role')?.invalid" class="invalid-feedback">
+                <div *ngIf="form.get('role')?.errors?.['required']">Role is required.</div>
+              </div>
+            </div>
             
+            <!-- Submit -->
             <button
               type="submit"
               class="btn btn-primary w-100"

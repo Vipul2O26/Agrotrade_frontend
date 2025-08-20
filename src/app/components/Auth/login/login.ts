@@ -8,14 +8,14 @@ import { SessionService } from '../../../services/session';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule , RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html'
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   errorMessage: string | null = null;
-  loading: any;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -28,41 +28,43 @@ export class LoginComponent implements OnInit {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      role: ['Farmer', Validators.required], 
+      role: ['', Validators.required] // ✅ role must be selected
     });
   }
 
-
   onSubmit() {
     this.submitted = true;
-    this.errorMessage = null; // Clear any previous server-side errors
-  
+    this.errorMessage = null;
+
     if (this.form.invalid) {
       return;
     }
-  
+
+    this.loading = true;
     this.form.disable();
-  
+
     this.auth.login(this.form.value).subscribe({
       next: (res) => {
         this.form.enable();
-        this.submitted = false; // Reset submitted state on success
-  
-        if (!res || !res.user || !res.token) {
+        this.loading = false;
+        this.submitted = false;
+
+        if (!res || !res.user || !res.accessToken) {
           this.errorMessage = 'Invalid response from server. Please try again.';
           return;
         }
-  
+
         const userData = res.user;
-  
+
         this.sessionService.setUserSession({
           id: userData.userId,
           name: userData.fullName,
           email: userData.email,
-          token: res.token,
+          token: res.accessToken, // ✅ correct field
           role: userData.role,
         });
-  
+
+        // ✅ route based on role
         const role = (userData.role || '').toLowerCase();
         if (role === 'farmer') {
           this.router.navigate(['/farmer']);
@@ -74,19 +76,13 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         this.form.enable();
-        this.submitted = false; // Reset submitted state on error
-        
-        // Check for a specific 401 Unauthorized status
+        this.loading = false;
+        this.submitted = false;
+
         if (err.status === 401) {
           this.errorMessage = 'Incorrect email or password.';
         } else {
-          const serverMessage = err?.error?.message;
-          if (serverMessage) {
-            this.errorMessage = serverMessage;
-          } else {
-            // A more robust fallback for unexpected errors.
-            this.errorMessage = 'An unexpected error occurred. Please try again later.';
-          }
+          this.errorMessage = err?.error?.message || 'An unexpected error occurred. Please try again later.';
         }
       }
     });
