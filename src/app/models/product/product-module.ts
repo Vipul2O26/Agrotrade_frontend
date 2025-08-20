@@ -1,27 +1,19 @@
-
-
 export interface Bid {
-  bidId: string; // Guid
+  bidId: string;        
   amount: number;
-  bidderId: string; // Guid
-  createdAt?: Date; // Optional because API may set it
+  bidderId: string;     
+  createdAt?: Date;     
 }
 
 export interface Product {
-id: any;
-  productId?: string;
+  productId?: string;    // Guid from backend
   name: string;
   description?: string;
   price: number;
   quantity: number;
   isBidding: boolean;
-  imageUrl?: string;
+  imageUrl?: string;    
   createdAt?: Date;
-  userId: string; 
-  bids?: any[];
+  userId: string;       
+  bids?: Bid[];         
 }
-
-
-
-
-export class ProductModule {}

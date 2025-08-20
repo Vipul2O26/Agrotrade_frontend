@@ -1,2 +1,51 @@
 <app-header></app-header>
-<p>add works!</p>
+
+<div class="container mt-4">
+  <h2 class="mb-3 text-primary">Add Product</h2>
+
+  <!-- Success -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" formControlName="name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea formControlName="description" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price (₹)</label>
+      <input type="number" formControlName="price" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Quantity</label>
+      <input type="number" formControlName="quantity" class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+      <input type="checkbox" formControlName="isBidding" class="form-check-input" />
+      <label class="form-check-label">Enable Bidding</label>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Image URL</label>
+      <input type="file" formControlName="imageUrl" class="form-control" />
+    </div>
+
+    <button class="btn btn-success" type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Adding...' : 'Add Product' }}
+    </button>
+  </form>
+</div>

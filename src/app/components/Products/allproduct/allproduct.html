@@ -1,3 +1,48 @@
 <app-header></app-header>
 
-<p>allproduct works!</p>
+<div class="container mt-4">
+  <h2 class="mb-3 text-success">All Products</h2>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center my-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading products...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Product list -->
+  <div class="row" *ngIf="!isLoading && !errorMessage && products.length > 0">
+    <div class="col-md-4 mb-3" *ngFor="let product of products">
+      <div class="card h-100 shadow-sm border-0">
+        <img *ngIf="product.imageUrl"
+             [src]="product.imageUrl"
+             class="card-img-top"
+             [alt]="product.name">
+
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ product.name }}</h5>
+          <p class="card-text text-muted">{{ product.description || 'No description available' }}</p>
+
+          <p><strong>Price:</strong> ₹{{ product.price }}</p>
+          <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+
+          <span class="badge"
+                [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
+            {{ product.isBidding ? 'Bidding' : 'Direct Sale' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No products fallback -->
+  <div *ngIf="!isLoading && !errorMessage && products.length === 0" class="alert alert-info">
+    No products available.
+  </div>
+</div>
