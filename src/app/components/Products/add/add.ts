@@ -52,7 +52,7 @@ export class Add implements OnInit {
 
     const newProduct: Product = {
       ...this.productForm.value,
-      userId: userSession.userId // ✅ backend expects this
+      userId: userSession.userId 
     };
 
     this.productService.addProduct(newProduct).subscribe({

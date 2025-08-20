@@ -131,4 +131,6 @@ export class SessionService {
     if (!this.isBrowser) return null;
     return sessionStorage.getItem(this.keys.fullName) || localStorage.getItem(this.keys.fullName);
   }
+
+  
 }
