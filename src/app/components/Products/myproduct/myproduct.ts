@@ -3,6 +3,8 @@ import { HeaderComponent } from '../../header/header';
 import { Service } from '../../../services/products/services';
 import { Product } from '../../../models/product/product-module';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-myproduct',
@@ -14,7 +16,9 @@ export class Myproduct {
   products: Product[] = [];
   isLoading = true;
   errorMessage = '';
-  constructor(private services: Service){}
+currentUserId: any;
+isAdmin: any;
+  constructor(private services: Service , private router: Router){}
 
   ngOnInit(): void {
     this.services.getAllProducts().subscribe({
@@ -29,5 +33,7 @@ export class Myproduct {
       }
     });
   }
+
+
 
 }

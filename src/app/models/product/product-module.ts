@@ -6,6 +6,7 @@ export interface Bid {
 }
 
 export interface Product {
+ownerId: any;
   productId?: string;    // Guid from backend
   name: string;
   description?: string;

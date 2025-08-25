@@ -1,84 +1,96 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white text-center">
-          <h4>Login</h4>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            
-            <!-- Error message -->
-            <div *ngIf="errorMessage" class="alert alert-danger mb-3" role="alert">
-              {{ errorMessage }}
-            </div>
-            
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="col-md-5">
+    <div class="card shadow-lg border-0 rounded-4">
+      
+      <!-- Header -->
+      <div class="card-header bg-gradient bg-primary text-white text-center rounded-top-4">
+        <h3 class="mb-0"><i class="bi bi-box-arrow-in-right me-2"></i> Login</h3>
+      </div>
+
+      <div class="card-body p-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="alert alert-danger mb-3 text-center fw-semibold">
+            {{ errorMessage }}
+          </div>
+          
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
               <input
                 type="email"
                 id="email"
                 formControlName="email"
                 class="form-control"
+                placeholder="Enter your email"
                 [ngClass]="{ 'is-invalid': (form.get('email')?.touched || submitted) && form.get('email')?.invalid }"
               />
-              <div *ngIf="(form.get('email')?.touched || submitted) && form.get('email')?.invalid" class="invalid-feedback">
-                <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
-                <div *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address.</div>
-              </div>
             </div>
+            <div *ngIf="(form.get('email')?.touched || submitted) && form.get('email')?.invalid" class="invalid-feedback">
+              <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
+              <div *ngIf="form.get('email')?.errors?.['email']">Invalid email address.</div>
+            </div>
+          </div>
 
-            <!-- Password -->
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label fw-semibold">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
               <input
                 type="password"
                 id="password"
                 formControlName="password"
                 class="form-control"
+                placeholder="Enter your password"
                 [ngClass]="{ 'is-invalid': (form.get('password')?.touched || submitted) && form.get('password')?.invalid }"
               />
-              <div *ngIf="(form.get('password')?.touched || submitted) && form.get('password')?.invalid" class="invalid-feedback">
-                <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
-              </div>
             </div>
-
-            <!-- Role Dropdown -->
-            <div class="mb-3">
-              <label for="role" class="form-label">Role</label>
-              <select
-                id="role"
-                formControlName="role"
-                class="form-select"
-                [ngClass]="{ 'is-invalid': (form.get('role')?.touched || submitted) && form.get('role')?.invalid }"
-              >
-                <option value="" disabled>Select your role</option>
-                <option value="Admin">Admin</option>
-                <option value="Farmer">Farmer</option>
-              </select>
-              <div *ngIf="(form.get('role')?.touched || submitted) && form.get('role')?.invalid" class="invalid-feedback">
-                <div *ngIf="form.get('role')?.errors?.['required']">Role is required.</div>
-              </div>
+            <div *ngIf="(form.get('password')?.touched || submitted) && form.get('password')?.invalid" class="invalid-feedback">
+              <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
             </div>
-            
-            <!-- Submit -->
-            <button
-              type="submit"
-              class="btn btn-primary w-100"
-              [disabled]="loading"
-            >
-              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              Login
-            </button>
-          </form>
-
-          <div class="mt-3 text-center">
-            <p>Don't have an account? <a routerLink="/register">Register here</a></p>
           </div>
+
+          <!-- Role -->
+          <div class="mb-3">
+            <label for="role" class="form-label fw-semibold">Role</label>
+            <select
+              id="role"
+              formControlName="role"
+              class="form-select"
+              [ngClass]="{ 'is-invalid': (form.get('role')?.touched || submitted) && form.get('role')?.invalid }"
+            >
+              <option value="" disabled>Select role</option>
+              <option value="Admin">Admin</option>
+              <option value="Farmer">Farmer</option>
+            </select>
+            <div *ngIf="(form.get('role')?.touched || submitted) && form.get('role')?.invalid" class="invalid-feedback">
+              Role is required.
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="btn btn-primary w-100 py-2 fw-semibold rounded-3"
+            [disabled]="loading"
+          >
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            Login
+          </button>
+        </form>
+
+        <!-- Extra Links -->
+        <div class="mt-4 text-center">
+          <a href="#" class="text-decoration-none small text-muted">Forgot password?</a>
+          <p class="mt-2">Don’t have an account? 
+            <a routerLink="/register" class="fw-semibold text-success">Register here</a>
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!--  -->
