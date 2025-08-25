@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header } from '../header/header';
+import { HeaderComponent } from '../header/header';
 
 interface Product {
   productId: number;
@@ -13,7 +13,7 @@ interface Product {
 @Component({
   selector: 'app-farmer',
   standalone: true,
-  imports: [CommonModule , Header],
+  imports: [CommonModule , HeaderComponent],
   templateUrl: './farmer.html',
 })
 export class FarmerComponent   {

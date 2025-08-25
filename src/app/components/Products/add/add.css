@@ -1,0 +1,106 @@
+.add-product-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+input[type="file"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+textarea {
+  resize: none;
+}
+
+.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error {
+  color: #d93025;
+  font-size: 0.8rem;
+}
+
+.success {
+  color: #1a7f37;
+  font-weight: 600;
+  text-align: center;
+}
+
+.preview {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.3rem;
+}
+
+.btn-submit {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-submit:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #1e40af;
+}
+
+.required {
+  color: #d93025;
+}

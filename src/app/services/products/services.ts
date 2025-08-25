@@ -15,9 +15,17 @@ export class Service {
     private sessionServices: SessionService
   ) { }
 
-  addProduct(productData: Product): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/add`, productData);
+  addProduct(productData: FormData): Observable<any> {
+    const token = localStorage.getItem('access_token'); // you saved it during login
+  
+    return this.http.post<any>(`${this.apiUrl}/add`, productData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
+  
+
 
   uploadImage(file: File): Observable<{ imageUrl: string }> {
     const formData = new FormData();

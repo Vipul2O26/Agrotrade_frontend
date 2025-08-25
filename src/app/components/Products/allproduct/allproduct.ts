@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header } from '../../header/header';
+import { HeaderComponent } from '../../header/header';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../../../models/product/product-module';
 import { Service } from '../../../services/products/services';
@@ -8,7 +8,7 @@ import { Service } from '../../../services/products/services';
 @Component({
   selector: 'app-allproduct',
   standalone: true,
-  imports: [CommonModule, Header , ReactiveFormsModule],
+  imports: [CommonModule, HeaderComponent , ReactiveFormsModule],
   templateUrl: './allproduct.html',
   styleUrls: ['./allproduct.css']
 })

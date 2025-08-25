@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Header } from '../../header/header';
+import { HeaderComponent } from '../../header/header';
 import { Service } from '../../../services/products/services';
 import { SessionService } from '../../../services/session';
-import { Product } from '../../../models/product/product-module';
 
 @Component({
   selector: 'app-add',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Header],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
   templateUrl: './add.html',
   styleUrls: ['./add.css']
 })
 export class Add implements OnInit {
   productForm!: FormGroup;
-  isSubmitting = false;
-  errorMessage = '';
+  selectedFile: File | null = null;
   successMessage = '';
+  errorMessage = '';
+  isSubmitting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,49 +29,47 @@ export class Add implements OnInit {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
-      price: [0, [Validators.required, Validators.min(1)]],
+      price: [0, [Validators.required, Validators.min(0.01)]],
       quantity: [1, [Validators.required, Validators.min(1)]],
-      isBidding: [false, Validators.required],
-      imageUrl: [''] // can be set later via upload
+      isBidding: [false, Validators.required]
     });
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   onSubmit(): void {
-    if (this.productForm.invalid) return;
-
-    this.isSubmitting = true;
-    this.errorMessage = '';
-    this.successMessage = '';
-
-    const userSession = this.sessionService.getUserSession();
-    if (!userSession || !userSession.userId) {
-      this.errorMessage = 'You must be logged in to add a product.';
-      this.isSubmitting = false;
-      return;
+    if (!this.productForm.valid) return;
+  
+    const formData = new FormData();
+    formData.append('Name', this.productForm.get('name')?.value);
+    formData.append('Description', this.productForm.get('description')?.value);
+    formData.append('Price', this.productForm.get('price')?.value);
+    formData.append('Quantity', this.productForm.get('quantity')?.value);
+    formData.append('IsBidding', this.productForm.get('isBidding')?.value);
+    formData.append('UserId', this.sessionService.getUserSession().userId);
+  
+    if (this.selectedFile) {
+      formData.append('Image', this.selectedFile, this.selectedFile.name); // ✅ MUST match backend field name
     }
-
-    const newProduct: Product = {
-      ...this.productForm.value,
-      userId: userSession.userId 
-    };
-
-    this.productService.addProduct(newProduct).subscribe({
+  
+    this.productService.addProduct(formData).subscribe({
       next: () => {
-        this.successMessage = 'Product added successfully!';
-        this.isSubmitting = false;
+        this.successMessage = '✅ Product added successfully!';
         this.productForm.reset({
           name: '',
           description: '',
           price: 0,
           quantity: 1,
-          isBidding: false,
-          imageUrl: ''
+          isBidding: false
         });
+        this.selectedFile = null;
       },
       error: (err) => {
-        this.errorMessage = 'Failed to add product. ' + (err.error?.message || '');
-        this.isSubmitting = false;
+        this.errorMessage = '❌ Failed to add product. ' + (err.error?.message || '');
       }
     });
   }
+  
 }

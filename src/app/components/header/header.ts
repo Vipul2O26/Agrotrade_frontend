@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth';
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
-export class Header {
+export class HeaderComponent {
   fullName = '';
 
   constructor(

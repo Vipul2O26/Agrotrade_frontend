@@ -14,6 +14,5 @@ export interface Product {
   isBidding: boolean;
   imageUrl?: string;    
   createdAt?: Date;
-  userId: string;       
-  bids?: Bid[];         
+  userId: string;             
 }
