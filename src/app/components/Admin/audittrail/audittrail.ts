@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class Audittrail implements OnInit {
   auditLogs: any[] = [];
+  loading: any;
+  
 
   constructor(private userService: Users, private router: Router) {}
 
