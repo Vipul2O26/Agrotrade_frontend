@@ -35,6 +35,15 @@ export class Service {
     });
   }
 
+  updateProduct(id: string, formData: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, formData, {
+      headers: this.getAuthHeaders().delete("Content-Type")
+    });
+  }
+    
+  
+  
+
   addProduct(productData: FormData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add`, productData, {
       headers: this.getAuthHeaders()

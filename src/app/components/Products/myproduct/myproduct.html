@@ -20,10 +20,7 @@
   <div class="row" *ngIf="!isLoading && !errorMessage && products.length > 0">
     <div class="col-md-4 mb-3" *ngFor="let product of products">
       <div class="card h-100 shadow-sm border-0">
-        <img *ngIf="product.imageUrl"
-             [src]="product.imageUrl"
-             class="card-img-top"
-             [alt]="product.name">
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" class="card-img-top" [alt]="product.name">
 
         <div class="card-body">
           <h5 class="card-title text-primary">{{ product.name }}</h5>
@@ -32,10 +29,30 @@
           <p><strong>Price:</strong> ₹{{ product.price }}</p>
           <p><strong>Quantity:</strong> {{ product.quantity }}</p>
 
-          <!-- <span class="badge"
-                [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
+          <span class="badge" [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
             {{ product.isBidding ? 'Bidding' : 'Direct Sale' }}
-          </span> -->
+          </span>
+
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ product.name }}</h5>
+            <p class="card-text text-muted">{{ product.description || 'No description available' }}</p>
+
+            <p><strong>Price:</strong> ₹{{ product.price }}</p>
+            <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-between mt-3">
+              <button class="btn btn-sm btn-outline-primary" (click)="editProduct(product.productId!)">
+                <i class="bi bi-pencil"></i> Edit
+              </button>
+
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(product.productId!)">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -46,4 +63,3 @@
     No products available.
   </div>
 </div>
-

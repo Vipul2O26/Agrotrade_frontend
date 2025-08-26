@@ -9,6 +9,7 @@ import { Viewalluser } from './components/Admin/viewalluser/viewalluser';
 import { Audittrail } from './components/Admin/audittrail/audittrail';
 import { Allproduct } from './components/Products/allproduct/allproduct';
 import { Myproduct } from './components/Products/myproduct/myproduct';
+import { EditProduct } from './components/Products/edit/edit';
 
 
 
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'addproduct' , component: Add , canActivate: [AuthGuard] },
     { path: 'allproduct' , component: Allproduct , canActivate: [AuthGuard] },
     { path: 'myproduct' , component: Myproduct , canActivate: [AuthGuard] },
+    { path: 'editproduct/:id', component: EditProduct, canActivate: [AuthGuard] },
 
 
     

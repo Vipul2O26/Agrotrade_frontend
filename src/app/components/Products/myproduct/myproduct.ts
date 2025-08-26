@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './myproduct.css'
 })
 export class Myproduct {
+
   products: Product[] = [];
   isLoading = true;
   errorMessage = '';
@@ -34,6 +35,26 @@ isAdmin: any;
     });
   }
 
+  deleteProduct(productId: string): void {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+  
+    this.services.deleteProduct(productId).subscribe({
+      next: () => {
+        this.products = this.products.filter(p => p.productId !== productId);
+      },
+      error: (err) => {
+        console.error("Delete failed", err);
+        alert("Failed to delete product.");
+      }
+    });
+  }
+  
+  
+  editProduct(productId: string): void {
+    this.router.navigate([`/editproduct/${productId}`]);
+  }
+  
+  
 
 
 }
