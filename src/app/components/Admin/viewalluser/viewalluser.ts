@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { User, Users } from '../../../services/admin/users';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AdminHeader } from '../admin-header/admin-header';
 
 
 @Component({
   selector: 'app-viewalluser',
-  imports: [ CommonModule],
+  imports: [ CommonModule, AdminHeader],
   templateUrl: './viewalluser.html',
   styleUrl: './viewalluser.css'
 })

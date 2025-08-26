@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Users } from '../../../services/admin/users'; 
 import { CommonModule } from '@angular/common';
+import { AdminHeader } from '../admin-header/admin-header';
 
 @Component({
   selector: 'app-audittrail',
   templateUrl: './audittrail.html',
   styleUrls: ['./audittrail.css'],
-  imports: [CommonModule]
+  imports: [CommonModule , AdminHeader]
 })
 export class Audittrail implements OnInit {
   auditLogs: any[] = [];
