@@ -1,48 +1,83 @@
-<app-header></app-header>
-
+<app-farmer></app-farmer>
 <div class="container mt-4">
-  <h2 class="mb-3 text-success">All Products</h2>
+  <h2 class="mb-4 text-success fw-bold">
+    <i class="bi bi-shop me-2"></i> All Products
+  </h2>
 
   <!-- Loading -->
   <div *ngIf="isLoading" class="text-center my-4">
-    <div class="spinner-border text-primary" role="status">
+    <div class="spinner-border text-success" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-    <p class="mt-2">Loading products...</p>
+    <p class="mt-2 text-muted">Loading products...</p>
   </div>
 
   <!-- Error -->
-  <div *ngIf="errorMessage" class="alert alert-danger">
+  <div *ngIf="errorMessage" class="alert alert-danger shadow-sm rounded-3">
     {{ errorMessage }}
   </div>
 
   <!-- Product list -->
-  <div class="row" *ngIf="!isLoading && !errorMessage && products.length > 0">
-    <div class="col-md-4 mb-3" *ngFor="let product of products">
-      <div class="card h-100 shadow-sm border-0">
+  <div class="row g-4" *ngIf="!isLoading && !errorMessage && products.length > 0">
+    <div class="col-md-4" *ngFor="let product of products">
+      <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative product-card">
+
+        <!-- Sale Type Badge -->
+        <span class="badge position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill"
+              [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
+          {{ product.isBidding ? 'Bidding' : 'Direct Sale' }}
+        </span>
+
+        <!-- Product Image -->
         <img *ngIf="product.imageUrl"
              [src]="product.imageUrl"
              class="card-img-top"
-             [alt]="product.name">
+             [alt]="product.name"
+             style="height:220px; object-fit:cover;">
 
-        <div class="card-body">
-          <h5 class="card-title text-primary">{{ product.name }}</h5>
-          <p class="card-text text-muted">{{ product.description || 'No description available' }}</p>
+        <div class="card-body d-flex flex-column">
+          <!-- Product Name -->
+          <h5 class="card-title text-success fw-bold">{{ product.name }}</h5>
 
-          <p><strong>Price:</strong> ₹{{ product.price }}</p>
-          <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+          <!-- Description -->
+          <p class="card-text text-muted small mb-2">
+            {{ product.description || 'No description available' }}
+          </p>
 
-          <span class="badge"
-                [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
-            {{ product.isBidding ? 'Bidding' : 'Direct Sale' }}
-          </span>
+          <!-- Price & Quantity -->
+          <p class="mb-1">
+            <strong class="text-dark">Price: </strong>
+            <span class="text-success fw-bold fs-5">₹{{ product.price }}</span>
+          </p>
+          <p class="mb-2">
+            <strong class="text-dark">Quantity: </strong>
+            <span class="badge bg-light text-dark px-3">{{ product.quantity }}</span>
+          </p>
+
+          <!-- Buttons -->
+          <div class="mt-auto d-flex justify-content-between">
+            <button class="btn btn-success btn-sm rounded-pill px-3"
+                    (click)="addToCart(product)">
+              <i class="bi bi-cart-plus"></i> Add to Cart
+            </button>
+
+            <!-- Optional Buy Now -->
+            <!--
+            <button class="btn btn-outline-primary btn-sm rounded-pill px-3"
+                    (click)="buyNow(product)">
+              <i class="bi bi-bag-check"></i> Buy Now
+            </button>
+            -->
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- No products fallback -->
-  <div *ngIf="!isLoading && !errorMessage && products.length === 0" class="alert alert-info">
+  <div *ngIf="!isLoading && !errorMessage && products.length === 0" class="alert alert-info text-center shadow-sm rounded-3 py-4">
+    <i class="bi bi-emoji-neutral fs-3 d-block mb-2"></i>
     No products available.
   </div>
 </div>
+

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../header/header';
 import { Service } from '../../../services/products/services';
 import { SessionService } from '../../../services/session';
+import { FarmerComponent } from '../../farmer/farmer';
 
 @Component({
   selector: 'app-add',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, FarmerComponent],
   templateUrl: './add.html',
   styleUrls: ['./add.css']
 })

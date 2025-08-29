@@ -17,14 +17,5 @@ export class HeaderComponent {
     private authservice: AuthService
     
   ) {}
-
-  ngOnInit() {
-    this.fullName = this.sessionService.getName() ?? '';
-  }
-
-  logout() {
-    this.authservice.logout();
-  }
-
-  
+ 
 }

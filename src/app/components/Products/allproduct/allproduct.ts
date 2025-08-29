@@ -4,11 +4,13 @@ import { HeaderComponent } from '../../header/header';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../../../models/product/product-module';
 import { Service } from '../../../services/products/services';
+import { CartService, CartItem } from '../../../services/products/cart-services';
+import { FarmerComponent } from '../../farmer/farmer';
 
 @Component({
   selector: 'app-allproduct',
   standalone: true,
-  imports: [CommonModule, HeaderComponent , ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule , FarmerComponent],
   templateUrl: './allproduct.html',
   styleUrls: ['./allproduct.css']
 })
@@ -17,7 +19,7 @@ export class Allproduct implements OnInit {
   isLoading = true;
   errorMessage = '';
 
-  constructor(private productService: Service) {}
+  constructor(private productService: Service, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe({
@@ -32,4 +34,16 @@ export class Allproduct implements OnInit {
       }
     });
   }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    alert(`${product.name} added to cart!`);
+
+  // // Buy now action
+  // buyNow(product: Product) {
+  //   console.log("Buying product:", product);
+  //   // later: redirect to checkout page
+  // }
+}
+
 }

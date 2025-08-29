@@ -1,0 +1,16 @@
+body {
+    background-color: #f8fdf8;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background: linear-gradient(90deg, #2e8b57, #3cb371);
+  }
+  .navbar .btn-danger {
+    transition: all 0.3s;
+  }
+  .navbar .btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+  }
+  
