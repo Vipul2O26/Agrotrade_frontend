@@ -10,6 +10,9 @@ import { AuthService } from '../../services/auth';
   styleUrls: ['./header.css']
 })
 export class HeaderComponent {
+logout() {
+throw new Error('Method not implemented.');
+}
   fullName = '';
 
   constructor(
