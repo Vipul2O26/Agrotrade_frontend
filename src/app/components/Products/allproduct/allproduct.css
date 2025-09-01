@@ -5,3 +5,9 @@
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
+.product-img {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}

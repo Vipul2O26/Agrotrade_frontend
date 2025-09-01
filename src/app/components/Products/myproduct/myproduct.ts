@@ -18,12 +18,12 @@ export class Myproduct {
   products: Product[] = [];
   isLoading = true;
   errorMessage = '';
-currentUserId: any;
-isAdmin: any;
+  currentUserId: any;
+  isAdmin: any;
   constructor(private services: Service , private router: Router){}
 
   ngOnInit(): void {
-    this.services.getAllProducts().subscribe({
+    this.services.getMyProductsByUserId().subscribe({
       next: (data) => {
         this.products = data;
         this.isLoading = false;

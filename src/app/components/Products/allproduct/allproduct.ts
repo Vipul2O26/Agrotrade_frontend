@@ -15,6 +15,9 @@ import { FarmerComponent } from '../../farmer/farmer';
   styleUrls: ['./allproduct.css']
 })
 export class Allproduct implements OnInit {
+buyNow(_t20: Product) {
+throw new Error('Method not implemented.');
+}
   products: Product[] = [];
   isLoading = true;
   errorMessage = '';
