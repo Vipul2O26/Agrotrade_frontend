@@ -15,7 +15,7 @@ interface Product {
 @Component({
   selector: 'app-farmer',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule,HeaderComponent ],
   templateUrl: './farmer.html',
 })
 export class FarmerComponent   {

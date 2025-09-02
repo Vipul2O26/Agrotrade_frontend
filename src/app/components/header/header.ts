@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { SessionService } from '../../services/session';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
+import { FarmerComponent } from '../farmer/farmer';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.html',
-  styleUrls: ['./header.css']
+  styleUrls: ['./header.css'],
 })
 export class HeaderComponent {
 logout() {

@@ -1,84 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Farmer Dashboard</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-</head>
-<body>
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="bg-light border-end vh-100 p-3" style="width: 250px;">
+    <h4 class="text-success mb-4">
+      
+    </h4>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a href="/myproduct" class="nav-link text-dark">
+          <i class="bi bi-box-seam text-success me-2"></i> My Products
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a href="/allproduct" class="nav-link text-dark">
+          <i class="bi bi-eye text-success me-2"></i> All Products
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a href="/addproduct" class="nav-link text-dark">
+          <i class="bi bi-cart-plus text-success me-2"></i> Add Product
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a href="/cart" class="nav-link text-dark">
+          <i class="bi bi-cart4 text-success me-2"></i> Cart
+        </a>
+      </li>
+    </ul>
+  </div>
 
  
-
-  <!-- Dashboard Header -->
-  <div class="container mt-4">
-    <div class="dashboard-header shadow-sm">
-      <h2>🌱 Farmer Dashboard</h2>
-      <p class="mb-0">Manage your products, explore the marketplace, and grow with AgroTrade.</p>
-    </div>
-  </div>
-
-  <!-- Main Content -->
-  <div class="container dashboard-content">
-    <div class="row g-4">
-
-      <!-- My Products -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card shadow-sm h-100 text-center p-3">
-          <div class="card-body">
-            <i class="bi bi-box-seam"></i>
-            <h5 class="card-title text-success">My Products</h5>
-            <p class="card-text">Manage all your listed crops and goods.</p>
-            <a href="/myproduct" class="btn btn-custom">View</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- All Products -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card shadow-sm h-100 text-center p-3">
-          <div class="card-body">
-            <i class="bi bi-eye"></i>
-            <h5 class="card-title text-success">All Products</h5>
-            <p class="card-text">Browse products listed by all farmers.</p>
-            <a href="/allproduct" class="btn btn-custom">View All</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Add Product -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card shadow-sm h-100 text-center p-3">
-          <div class="card-body">
-            <i class="bi bi-cart-plus"></i>
-            <h5 class="card-title text-success">Add Product</h5>
-            <p class="card-text">List a new crop or product for selling.</p>
-            <a href="/addproduct" class="btn btn-custom">Add New</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cart -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card shadow-sm h-100 text-center p-3">
-          <div class="card-body">
-            <i class="bi bi-cart4"></i>
-            <h5 class="card-title text-success">Cart</h5>
-            <p class="card-text">View items added to your cart.</p>
-            <a href="/cart" class="btn btn-custom">Cart</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>

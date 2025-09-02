@@ -10,7 +10,7 @@ import { FarmerComponent } from '../../farmer/farmer';
 @Component({
   selector: 'app-allproduct',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule , FarmerComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
   templateUrl: './allproduct.html',
   styleUrls: ['./allproduct.css']
 })

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../header/header';
 import { Service } from '../../../services/products/services';
 import { Product } from '../../../models/product/product-module';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FarmerComponent } from '../../farmer/farmer';
+import { HeaderComponent } from '../../header/header';
+
 
 
 @Component({
   selector: 'app-myproduct',
-  imports: [ FarmerComponent , CommonModule],
+  imports: [CommonModule,HeaderComponent],
   templateUrl: './myproduct.html',
   styleUrl: './myproduct.css'
 })

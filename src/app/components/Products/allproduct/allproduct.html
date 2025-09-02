@@ -1,83 +1,86 @@
-<app-farmer></app-farmer>
-<div class="container mt-4">
-  <h2 class="mb-4 text-success fw-bold">
-    <i class="bi bi-shop me-2"></i> All Products
-  </h2>
-
-  <!-- Loading -->
-  <div *ngIf="isLoading" class="text-center my-4">
-    <div class="spinner-border text-success" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <p class="mt-2 text-muted">Loading products...</p>
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="bg-light border-end vh-100 p-3" style="width: 250px;">
+    <h4 class="text-success mb-4">
+    
+    </h4>
+    <ul class="nav flex-column">
+      <app-header></app-header>
+    </ul>
   </div>
+  <!-- Main Content -->
+  <div class="flex-grow-1 p-4">
+    <div class="container">
+      <h2 class="mb-4 text-success fw-bold">
+        <i class="bi bi-shop me-2"></i> All Products
+      </h2>
 
-  <!-- Error -->
-  <div *ngIf="errorMessage" class="alert alert-danger shadow-sm rounded-3">
-    {{ errorMessage }}
-  </div>
+      <!-- Loading -->
+      <div *ngIf="isLoading" class="text-center my-4">
+        <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Loading products...</p>
+      </div>
 
-  <!-- Product list -->
-  <div class="row g-4" *ngIf="!isLoading && !errorMessage && products.length > 0">
-    <div class="col-md-4" *ngFor="let product of products">
-      <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative product-card">
+      <!-- Error -->
+      <div *ngIf="errorMessage" class="alert alert-danger shadow-sm rounded-3">
+        {{ errorMessage }}
+      </div>
 
-        <!-- Sale Type Badge -->
-        <span class="badge position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill"
-              [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
-          {{ product.isBidding ? 'Bidding' : 'Direct Sale' }}
-        </span>
+      <!-- Product list -->
+      <div class="row g-4" *ngIf="!isLoading && !errorMessage && products.length > 0">
+        <div class="col-md-4" *ngFor="let product of products">
+          <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative product-card">
 
-        <!-- Product Image -->
-        <img *ngIf="product.imageUrl"
-             [src]="product.imageUrl"
-             class="card-img-top"
-             [alt]="product.name"
-             >
+            <!-- Sale Type Badge -->
+            <span class="badge position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill"
+                  [ngClass]="product.isBidding ? 'bg-warning text-dark' : 'bg-success'">
+              {{ product.isBidding ? 'Bidding' : 'Direct Sale' }}
+            </span>
 
-        <div class="card-body d-flex flex-column">
-          <!-- Product Name -->
-          <h5 class="card-title text-success fw-bold">{{ product.name }}</h5>
+            <!-- Product Image -->
+            <img *ngIf="product.imageUrl"
+                 [src]="product.imageUrl"
+                 class="card-img-top"
+                 [alt]="product.name">
 
-          <!-- Description -->
-          <p class="card-text text-muted small mb-2">
-            {{ product.description || 'No description available' }}
-          </p>
+            <div class="card-body d-flex flex-column">
+              <!-- Product Name -->
+              <h5 class="card-title text-success fw-bold">{{ product.name }}</h5>
 
-          <!-- Price & Quantity -->
-          <p class="mb-1">
-            <strong class="text-dark">Price: </strong>
-            <span class="text-success fw-bold fs-5">₹{{ product.price }}</span>
-          </p>
-          <p class="mb-2">
-            <strong class="text-dark">Quantity: </strong>
-            <span class="badge bg-light text-dark px-3">{{ product.quantity }}</span>
-          </p>
+              <!-- Description -->
+              <p class="card-text text-muted small mb-2">
+                {{ product.description || 'No description available' }}
+              </p>
 
-          <!-- Buttons -->
-          <div class="mt-auto d-flex justify-content-between">
-            <button class="btn btn-success btn-sm rounded-pill px-3"
-                    (click)="addToCart(product)">
-              <i class="bi bi-cart-plus"></i> Add to Cart
-            </button>
+              <!-- Price & Quantity -->
+              <p class="mb-1">
+                <strong class="text-dark">Price: </strong>
+                <span class="text-success fw-bold fs-5">₹{{ product.price }}</span>
+              </p>
+              <p class="mb-2">
+                <strong class="text-dark">Quantity: </strong>
+                <span class="badge bg-light text-dark px-3">{{ product.quantity }}</span>
+              </p>
 
-            <!-- Optional Buy Now -->
-            <!--
-            <button class="btn btn-outline-primary btn-sm rounded-pill px-3"
-                    (click)="buyNow(product)">
-              <i class="bi bi-bag-check"></i> Buy Now
-            </button>
-            -->
+              <!-- Buttons -->
+              <div class="mt-auto d-flex justify-content-between">
+                <button class="btn btn-success btn-sm rounded-pill px-3"
+                        (click)="addToCart(product)">
+                  <i class="bi bi-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- No products fallback -->
+      <div *ngIf="!isLoading && !errorMessage && products.length === 0"
+           class="alert alert-info text-center shadow-sm rounded-3 py-4">
+        <i class="bi bi-emoji-neutral fs-3 d-block mb-2"></i>
+        No products available.
+      </div>
     </div>
   </div>
-
-  <!-- No products fallback -->
-  <div *ngIf="!isLoading && !errorMessage && products.length === 0" class="alert alert-info text-center shadow-sm rounded-3 py-4">
-    <i class="bi bi-emoji-neutral fs-3 d-block mb-2"></i>
-    No products available.
-  </div>
-</div>
-

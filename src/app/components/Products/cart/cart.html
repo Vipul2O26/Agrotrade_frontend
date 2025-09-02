@@ -1,105 +1,117 @@
-<app-farmer></app-farmer>
-
-<div class="container mt-4">
-
-  <h2 class="text-success fw-bold mb-4">
-    <i class="bi bi-cart4 me-2"></i> My Cart
-  </h2>
-
-  <!-- Empty cart -->
-  <div *ngIf="cartItems.length === 0" class="alert alert-info text-center py-5 rounded-3 shadow-sm">
-    <i class="bi bi-emoji-frown fs-1 d-block mb-3"></i>
-    <h5>Your cart is empty.</h5>
-    <a routerLink="/allproduct" class="btn btn-success mt-3 rounded-pill px-4">
-      <i class="bi bi-shop"></i> Browse Products
-    </a>
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="bg-light border-end vh-100 p-3" style="width: 250px;">
+    <h4 class="text-success mb-4">
+    
+    </h4>
+    <ul class="nav flex-column">
+      <app-header></app-header>
+    </ul>
   </div>
 
-  <!-- Cart Items -->
-  <div *ngIf="cartItems.length > 0" class="row g-4">
 
-    <!-- Cart Products List -->
-    <div class="col-lg-8">
-      <div class="card shadow border-0 rounded-4">
-        <div class="card-body p-0">
-          <table class="table align-middle mb-0">
-            <thead class="bg-success text-white text-center">
-              <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th style="width: 180px;">Quantity</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <tr *ngFor="let item of cartItems; let i = index">
-                <td class="fw-semibold text-start px-3">
-                  <div class="d-flex align-items-center">
-                    <img src="{{ item.imageUrl || 'https://via.placeholder.com/50' }}" 
-                         class="rounded me-3" width="50" height="50">
-                    <span class="text-dark">{{ item.name }}</span>
-                  </div>
-                </td>
-                <td class="fw-bold text-secondary">₹{{ item.price }}</td>
-                <td>
-                  <div class="d-flex justify-content-center align-items-center">
-                    <button class="btn btn-sm btn-outline-success rounded-circle me-2"
-                            (click)="decreaseQuantity(i)">
-                      <i class="bi bi-dash"></i>
-                    </button>
-                    <span class="fw-bold">{{ item.quantity }}</span>
-                    <button class="btn btn-sm btn-outline-success rounded-circle ms-2"
-                            (click)="increaseQuantity(i)">
-                      <i class="bi bi-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td class="fw-bold text-success">₹{{ item.price * item.quantity }}</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-danger rounded-circle" (click)="removeFromCart(i)">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  <div class="flex-grow-1 p-4">
+
+    <div class="container mt-4">
+      <h2 class="text-success fw-bold mb-4">
+        <i class="bi bi-cart4 me-2"></i> My Cart
+      </h2>
+
+      <!-- Empty cart -->
+      <div *ngIf="cartItems.length === 0" class="alert alert-info text-center py-5 rounded-3 shadow-sm">
+        <i class="bi bi-emoji-frown fs-1 d-block mb-3"></i>
+        <h5>Your cart is empty.</h5>
+        <a routerLink="/allproduct" class="btn btn-success mt-3 rounded-pill px-4">
+          <i class="bi bi-shop"></i> Browse Products
+        </a>
+      </div>
+
+      <!-- Cart Items -->
+      <div *ngIf="cartItems.length > 0" class="row g-4">
+
+        <!-- Cart Products List -->
+        <div class="col-lg-8">
+          <div class="card shadow border-0 rounded-4">
+            <div class="card-body p-0">
+              <table class="table align-middle mb-0">
+                <thead class="bg-success text-white text-center">
+                  <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th style="width: 180px;">Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngFor="let item of cartItems; let i = index">
+                    <td class="fw-semibold text-start px-3">
+                      <div class="d-flex align-items-center">
+                        <img src="{{ item.imageUrl || 'https://via.placeholder.com/50' }}" 
+                             class="rounded me-3" width="50" height="50">
+                        <span class="text-dark">{{ item.name }}</span>
+                      </div>
+                    </td>
+                    <td class="fw-bold text-secondary">₹{{ item.price }}</td>
+                    <td>
+                      <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn btn-sm btn-outline-success rounded-circle me-2"
+                                (click)="decreaseQuantity(i)">
+                          <i class="bi bi-dash"></i>
+                        </button>
+                        <span class="fw-bold">{{ item.quantity }}</span>
+                        <button class="btn btn-sm btn-outline-success rounded-circle ms-2"
+                                (click)="increaseQuantity(i)">
+                          <i class="bi bi-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td class="fw-bold text-success">₹{{ item.price * item.quantity }}</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-danger rounded-circle" (click)="removeFromCart(i)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
+
+        <!-- Cart Summary -->
+        <div class="col-lg-4">
+          <div class="card shadow border-0 rounded-4 p-4 sticky-top">
+            <h5 class="fw-bold mb-3">Order Summary</h5>
+            
+            <div class="d-flex justify-content-between mb-2">
+              <span>Items:</span>
+              <span class="fw-semibold">{{ cartItems.length }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal:</span>
+              <span class="fw-semibold">₹{{ getTotal() }}</span>
+            </div>
+
+            <!-- Coupon -->
+            <div class="input-group mt-3">
+              <input type="text" class="form-control" placeholder="Enter Coupon">
+              <button class="btn btn-outline-success">Apply</button>
+            </div>
+
+            <hr>
+            <h4 class="text-success fw-bold d-flex justify-content-between">
+              <span>Total:</span>
+              <span>₹{{ getTotal() }}</span>
+            </h4>
+
+            <button class="btn btn-success w-100 mt-3 fw-semibold py-2 rounded-pill"
+                    (click)="checkout()">
+              <i class="bi bi-cash-coin"></i> Checkout
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <!-- Cart Summary -->
-    <div class="col-lg-4">
-      <div class="card shadow border-0 rounded-4 p-4 sticky-top">
-        <h5 class="fw-bold mb-3">Order Summary</h5>
-        
-        <div class="d-flex justify-content-between mb-2">
-          <span>Items:</span>
-          <span class="fw-semibold">{{ cartItems.length }}</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2">
-          <span>Subtotal:</span>
-          <span class="fw-semibold">₹{{ getTotal() }}</span>
-        </div>
-
-        <!-- Coupon -->
-        <div class="input-group mt-3">
-          <input type="text" class="form-control" placeholder="Enter Coupon">
-          <button class="btn btn-outline-success">Apply</button>
-        </div>
-
-        <hr>
-        <h4 class="text-success fw-bold d-flex justify-content-between">
-          <span>Total:</span>
-          <span>₹{{ getTotal() }}</span>
-        </h4>
-
-        <button class="btn btn-success w-100 mt-3 fw-semibold py-2 rounded-pill"
-                (click)="checkout()">
-          <i class="bi bi-cash-coin"></i> Checkout
-        </button>
-      </div>
-    </div>
-
   </div>
-</div>
