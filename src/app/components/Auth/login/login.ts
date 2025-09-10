@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth';
-import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/Auth/auth-service';
 import { SessionService } from '../../../services/session';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink , FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login.html'
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
-  submitted = false;
-  errorMessage: string | null = null;
   loading = false;
+  errorMessage: string | null = null;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
     private router: Router,
+    private authservice: AuthService,
     private sessionService: SessionService
   ) {}
 
@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      role: ['', Validators.required] // ✅ role must be selected
     });
   }
 
@@ -36,54 +35,24 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.errorMessage = null;
 
-    if (this.form.invalid) {
-      return;
-    }
+    if (this.form.invalid) return;
 
     this.loading = true;
-    this.form.disable();
 
-    this.auth.login(this.form.value).subscribe({
+    this.authservice.login(this.form.value.email, this.form.value.password).subscribe({
       next: (res) => {
-        this.form.enable();
-        this.loading = false;
-        this.submitted = false;
+        alert("Login success ✅");
+        console.log("User:", res);
 
-        if (!res || !res.user || !res.accessToken) {
-          this.errorMessage = 'Invalid response from server. Please try again.';
-          return;
-        }
+        // save session (optional)
+        this.sessionService.setUserSession(res);
 
-        const userData = res.user;
-
-        this.sessionService.setUserSession({
-          id: userData.userId,
-          name: userData.fullName,
-          email: userData.email,
-          token: res.accessToken, // ✅ correct field
-          role: userData.role,
-        });
-
-        // ✅ route based on role
-        const role = (userData.role || '').toLowerCase();
-        if (role === 'farmer') {
-          this.router.navigate(['/farmer']);
-        } else if (role === 'admin') {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/']);
-        }
+        // redirect
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        this.form.enable();
         this.loading = false;
-        this.submitted = false;
-
-        if (err.status === 401) {
-          this.errorMessage = 'Incorrect email or password.';
-        } else {
-          this.errorMessage = err?.error?.message || 'An unexpected error occurred. Please try again later.';
-        }
+        this.errorMessage = err.error?.message || "Invalid login!";
       }
     });
   }

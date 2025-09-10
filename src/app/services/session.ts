@@ -19,12 +19,11 @@ export class SessionService {
     email: 'email',
     userId: 'userid', 
     fullName: 'fullname',
-    role: 'role',
     user: 'user' 
   };
 
 
-  setUserSession(user: { id: string; name: string; email: string; token: string; role: string }) {
+  setUserSession(user: { id: string; name: string; email: string; token: string;}) {
     if (!this.isBrowser) return; 
     try {
   
@@ -32,12 +31,10 @@ export class SessionService {
       sessionStorage.setItem(this.keys.fullName, user.name);
       sessionStorage.setItem(this.keys.email, user.email);
       sessionStorage.setItem(this.keys.token, user.token);
-      sessionStorage.setItem(this.keys.role, user.role);
       sessionStorage.setItem(this.keys.user, JSON.stringify({
         userId: user.id, 
         name: user.name,
         email: user.email,
-        role: user.role
       }));
       console.log('User session stored in sessionStorage');
     } catch (err) {
@@ -46,12 +43,10 @@ export class SessionService {
       localStorage.setItem(this.keys.userId, user.id);
       localStorage.setItem(this.keys.fullName, user.name);
       localStorage.setItem(this.keys.email, user.email);
-      localStorage.setItem(this.keys.role, user.role);
       localStorage.setItem(this.keys.user, JSON.stringify({
         userId: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
       }));
     }
   }
@@ -120,13 +115,6 @@ export class SessionService {
     return sessionStorage.getItem(this.keys.userId) || localStorage.getItem(this.keys.userId);
   }
 
-
-  getRole(): string | null {
-    if (!this.isBrowser) return null;
-    return sessionStorage.getItem(this.keys.role) || localStorage.getItem(this.keys.role);
-  }
-
- 
   getName(): string | null {
     if (!this.isBrowser) return null;
     return sessionStorage.getItem(this.keys.fullName) || localStorage.getItem(this.keys.fullName);

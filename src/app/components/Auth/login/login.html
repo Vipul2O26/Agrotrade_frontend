@@ -54,23 +54,7 @@
             </div>
           </div>
 
-          <!-- Role -->
-          <div class="mb-3">
-            <label for="role" class="form-label fw-semibold">Role</label>
-            <select
-              id="role"
-              formControlName="role"
-              class="form-select"
-              [ngClass]="{ 'is-invalid': (form.get('role')?.touched || submitted) && form.get('role')?.invalid }"
-            >
-              <option value="" disabled>Select role</option>
-              <option value="Admin">Admin</option>
-              <option value="Farmer">Farmer</option>
-            </select>
-            <div *ngIf="(form.get('role')?.touched || submitted) && form.get('role')?.invalid" class="invalid-feedback">
-              Role is required.
-            </div>
-          </div>
+        
 
           <!-- Submit -->
           <button
