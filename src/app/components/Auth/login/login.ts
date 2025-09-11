@@ -34,21 +34,27 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.errorMessage = null;
-
+  
     if (this.form.invalid) return;
-
+  
     this.loading = true;
-
+  
     this.authservice.login(this.form.value.email, this.form.value.password).subscribe({
       next: (res) => {
         alert("Login success ✅");
         console.log("User:", res);
-
-      
+  
+        // Save session
         this.sessionService.setUserSession(res);
-
-        // redirect
-        this.router.navigate(['/farmerdashboard']);
+  
+        // ✅ Redirect based on role
+        if (res.roles && res.roles.includes("Admin")) {
+          this.router.navigate(['/admindashboard']);
+        } else if (res.roles && res.roles.includes("Farmer")) {
+          this.router.navigate(['/farmerdashboard']);
+        } else {
+          this.router.navigate(['/']); 
+        }
       },
       error: (err) => {
         this.loading = false;
@@ -56,4 +62,5 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+  
 }

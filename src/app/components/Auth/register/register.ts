@@ -47,16 +47,16 @@ export class RegisterComponent {
         this.registerForm.reset();
         this.submitted = false;
 
-        // redirect after 2s
+     
         setTimeout(() => this.router.navigate(['/login']), 2000);
       },
       error: (err) => {
         this.loading = false;
 
         if (err.error?.errors) {
-          // Collect multiple error messages from Identity
+          
           this.errorMessage = Object.values(err.error.errors)
-            .flat() // since each error can be an array
+            .flat() 
             .join(', ');
         } else {
           this.errorMessage = err.error?.message || 'Registration failed!';

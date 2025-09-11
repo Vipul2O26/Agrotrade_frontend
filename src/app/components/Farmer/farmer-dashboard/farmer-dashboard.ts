@@ -1,11 +1,21 @@
 import { Component } from '@angular/core';
+import { SessionService } from '../../../services/Session/session';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-farmer-dashboard',
-  imports: [],
   templateUrl: './farmer-dashboard.html',
-  styleUrl: './farmer-dashboard.css'
+  styleUrls: ['./farmer-dashboard.css'] // 👈 plural: styleUrls
 })
 export class FarmerDashboard {
 
+  constructor(
+    private sessionService: SessionService,
+    private router: Router   // ✅ correct injection
+  ) {}
+
+  logout(): void {
+    this.sessionService.clearSession(); 
+    this.router.navigate(['/login']);  // ✅ works now
+  }
 }
