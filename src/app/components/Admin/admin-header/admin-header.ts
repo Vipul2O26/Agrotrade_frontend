@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { SessionService } from '../../../services/session'; 
+import { SessionService } from '../../../services/Session/session'; 
 
 @Component({
   selector: 'app-admin-header',

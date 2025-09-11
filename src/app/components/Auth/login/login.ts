@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/Auth/auth-service';
-import { SessionService } from '../../../services/session';
+import { SessionService } from '../../../services/Session/session';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule , RouterLink],
   templateUrl: './login.html'
 })
 export class LoginComponent implements OnInit {
@@ -44,11 +44,11 @@ export class LoginComponent implements OnInit {
         alert("Login success ✅");
         console.log("User:", res);
 
-        // save session (optional)
+      
         this.sessionService.setUserSession(res);
 
         // redirect
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/farmerdashboard']);
       },
       error: (err) => {
         this.loading = false;

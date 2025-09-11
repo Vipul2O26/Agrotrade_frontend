@@ -1,7 +1,7 @@
 // src/app/auth.interceptor.ts
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { SessionService } from './services/session';
+import { SessionService } from './services/Session/session';
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const sessionService = inject(SessionService);
   const userSession = sessionService.getUserSession();

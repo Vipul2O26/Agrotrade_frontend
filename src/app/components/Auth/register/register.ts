@@ -52,7 +52,16 @@ export class RegisterComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || 'Registration failed!';
+
+        if (err.error?.errors) {
+          // Collect multiple error messages from Identity
+          this.errorMessage = Object.values(err.error.errors)
+            .flat() // since each error can be an array
+            .join(', ');
+        } else {
+          this.errorMessage = err.error?.message || 'Registration failed!';
+        }
+
         console.error('Registration error:', err);
       }
     });
