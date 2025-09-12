@@ -29,6 +29,11 @@ export class RegisterComponent {
     });
   }
 
+  // convenience getter for easy form access in template
+  get f() {
+    return this.registerForm.controls;
+  }
+
   onSubmit() {
     this.submitted = true;
     this.errorMessage = null;
@@ -40,30 +45,31 @@ export class RegisterComponent {
       return;
     }
 
+    // Pass form value (email + password) to API
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
         this.loading = false;
-        this.successMessage = 'Registration successful! Please log in.';
+        this.successMessage = '✅ Registration successful! Please log in.';
         this.registerForm.reset();
         this.submitted = false;
 
-     
-        setTimeout(() => this.router.navigate(['/login']), 2000);
+        // redirect to login after short delay
+        setTimeout(() => this.router.navigate(['/login']), 1500);
       },
       error: (err) => {
         this.loading = false;
 
         if (err.error?.errors) {
-          
+          // collect identity errors (ex: "Password too short", "Email already taken")
           this.errorMessage = Object.values(err.error.errors)
-            .flat() 
+            .flat()
             .join(', ');
         } else {
-          this.errorMessage = err.error?.message || 'Registration failed!';
+          this.errorMessage = err.error?.message || '❌ Registration failed!';
         }
 
         console.error('Registration error:', err);
-      }
+      },
     });
   }
 }

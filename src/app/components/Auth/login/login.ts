@@ -8,19 +8,19 @@ import { SessionService } from '../../../services/Session/session';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule , RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink],
   templateUrl: './login.html'
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   loading = false;
-  errorMessage: string | null = null;
   submitted = false;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authservice: AuthService,
+    private authService: AuthService,
     private sessionService: SessionService
   ) {}
 
@@ -34,33 +34,45 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.errorMessage = null;
-  
+
     if (this.form.invalid) return;
-  
+
     this.loading = true;
-  
-    this.authservice.login(this.form.value.email, this.form.value.password).subscribe({
+
+    this.authService.login(this.form.value.email, this.form.value.password).subscribe({
       next: (res) => {
-        alert("Login success ✅");
-        console.log("User:", res);
-  
-        // Save session
-        this.sessionService.setUserSession(res);
-  
-        // ✅ Redirect based on role
-        if (res.roles && res.roles.includes("Admin")) {
-          this.router.navigate(['/admindashboard']);
-        } else if (res.roles && res.roles.includes("Farmer")) {
-          this.router.navigate(['/farmerdashboard']);
-        } else {
-          this.router.navigate(['/']); 
-        }
+        // Save the token and basic user info
+        this.sessionService.setUserSession({
+          accessToken: res.accessToken,
+          refreshToken: res.refreshToken,
+          tokenType: res.tokenType,
+          email: res.email,
+          id: res.id,
+          name: res.name
+        });
+    
+        // Now fetch user roles
+        this.authService.loadCurrentUser().subscribe({
+          next: (user) => {
+            const roles = user.roles || []; // fallback if undefined
+    
+            if (roles.includes('Admin')) {
+              this.router.navigate(['/admindashboard']);
+            } else if (roles.includes('Farmer')) {
+              this.router.navigate(['/farmerdashboard']);
+            } else {
+              this.router.navigate(['/']); // fallback
+            }
+          },
+          error: () => {
+            this.router.navigate(['/']); // fallback if roles can't be fetched
+          }
+        });
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || "Invalid login!";
+        this.errorMessage = err.error?.message || 'Invalid login!';
       }
     });
   }
-  
 }

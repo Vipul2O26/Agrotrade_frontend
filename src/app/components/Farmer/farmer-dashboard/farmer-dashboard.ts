@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { SessionService } from '../../../services/Session/session';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-farmer-dashboard',
   templateUrl: './farmer-dashboard.html',
-  styleUrls: ['./farmer-dashboard.css'] // 👈 plural: styleUrls
+  styleUrl: './farmer-dashboard.css',
+  imports: [CommonModule]
 })
 export class FarmerDashboard {
 
@@ -16,6 +18,6 @@ export class FarmerDashboard {
 
   logout(): void {
     this.sessionService.clearSession(); 
-    this.router.navigate(['/login']);  // ✅ works now
+    this.router.navigate(['/login']);  
   }
 }
